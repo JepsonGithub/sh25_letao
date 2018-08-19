@@ -48,8 +48,63 @@ $(function() {
   $('#addBtn').click(function() {
     // 显示添加模态框
     $('#addModal').modal("show");
-  })
+  });
 
+
+
+  // 3. 添加表单校验功能
+  $('#form').bootstrapValidator({
+
+    // 配置校验图标
+    feedbackIcons: {
+      valid: 'glyphicon glyphicon-ok',    // 校验成功
+      invalid: 'glyphicon glyphicon-remove',  // 校验失败
+      validating: 'glyphicon glyphicon-refresh' // 校验中
+    },
+
+    // 字段列表
+    fields: {
+      categoryName: {
+        // 校验规则, 要求非空
+        validators: {
+          notEmpty: {
+            message: "请输入一级分类名称"
+          }
+        }
+      }
+    }
+  });
+
+
+  // 4. 添加表单校验成功事件, 阻止默认的表单提交, 通过ajax进行提交
+  $('#form').on("success.form.bv", function( e ) {
+    // 阻止默认的提交
+    e.preventDefault();
+
+    // 通过 ajax 提交
+    $.ajax({
+      type: "post",
+      url: "/category/addTopCategory",
+      data: $('#form').serialize(),
+      dataType: "json",
+      success: function( info ) {
+        console.log( info )
+
+        if ( info.success ) {
+          // 添加成功
+          // 关闭模态框
+          $('#addModal').modal("hide");
+          // 重新渲染第一页
+          currentPage = 1;
+          render();
+
+          // 重置表单内容和状态
+          $('#form').data("bootstrapValidator").resetForm(true);
+        }
+
+      }
+    })
+  })
 
 
 });
