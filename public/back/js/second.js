@@ -52,7 +52,53 @@ $(function() {
   // 2. 点击添加分类按钮, 显示添加模态框
   $('#addBtn').click(function() {
     $('#addModal').modal("show");
-  })
+
+    // 发送ajax请求, 获取所有的一级分类数据, 进行动态渲染下拉框
+
+    // 通过获取一级分类接口(带分页的) 模拟 获取全部一级分类的接口
+    $.ajax({
+      type: "get",
+      url: "/category/queryTopCategoryPaging",
+      data: {
+        page: 1,
+        pageSize: 100
+      },
+      dataType: "json",
+      success: function( info ) {
+        console.log( info )
+        var htmlStr = template("dropdownTpl", info );
+        $('.dropdown-menu').html( htmlStr );
+      }
+    })
+
+  });
+
+
+
+  // 3. 给下拉列表的 a 添加点击事件(通过事件委托绑定)
+  $('.dropdown-menu').on("click", "a", function() {
+    // 获取 a 的文本
+    var txt = $(this).text();
+    // 设置 给按钮
+    $('#dropdownText').text( txt );
+  });
+
+
+
+  // 4. 配置文件上传插件, 进行文件上传初始化
+  $('#fileupload').fileupload({
+    // 配置返回数据格式
+    dataType: "json",
+    // 上传完成图片后, 调用的回调函数
+    // 通过 data.result.picAddr 获取响应的图片地址
+    done: function( e, data ) {
+      console.log( data.result.picAddr )
+      // 获取地址
+      var imgUrl = data.result.picAddr;
+      // 设置给 img
+      $('#imgBox img').attr("src", imgUrl);
+    }
+  });
 
 
 })
