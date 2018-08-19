@@ -133,8 +133,31 @@
           <h4 class="modal-title">添加分类</h4>
         </div>
         <div class="modal-body">
+
           <div class="form-group">
-            <input type="text"  name="categoryName" class="form-control" placeholder="请输入一级分类">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                请选择一级分类
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="#">大鹏馆</a></li>
+                <li><a href="#">大鹏馆</a></li>
+                <li><a href="#">大鹏馆</a></li>
+                <li><a href="#">大鹏馆</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text"  name="brandName" class="form-control" placeholder="请输入二级分类">
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-default">上传图片</button>
+          </div>
+          
+          <div class="form-group">
+            <img src="./images/none.png" width="100" alt="">
           </div>
         </div>
         <div class="modal-footer">
