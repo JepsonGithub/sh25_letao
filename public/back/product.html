@@ -150,6 +150,9 @@
 
             <!-- 添加一个 input 表单元素, 存储 brandId 存储品牌 -->
             <input type="hidden" name="brandId">
+
+            <!-- 产品上下架, 默认上架, 值为 1 -->
+            <input type="hidden" name="statu">
           </div>
 
 
@@ -191,14 +194,15 @@
             <!-- 准备结构, 需要通过插件帮我们发送文件上传请求, 需要配置 name 和 data-url 接口地址
                  name     后台用于接收图片
                  data-url 后台接口地址
+                 multiple 多文件上传配置
             -->
-            <input type="file" name="pic1" data-url="/category/addSecondCategoryPic" id="fileupload" style="display: none;">
+            <input type="file" name="pic1" multiple data-url="/product/addProductPic" id="fileupload" style="display: none;">
           </div>
 
           <div class="form-group" id="imgBox">
-            <img src="./images/none.png" width="100" alt="">
-            <img src="./images/none.png" width="100" alt="">
-            <img src="./images/none.png" width="100" alt="">
+
+            <!-- 用于标记当前图片上传的状态 -->
+            <input type="hidden" name="picStatus">
           </div>
         </div>
         <div class="modal-footer">
