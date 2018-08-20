@@ -3,6 +3,7 @@
  */
 
 
+// 对页面中所有的区域滚动进行初始化
 mui('.mui-scroll-wrapper').scroll({
   indicators: false, // 是否显示滚动条
   deceleration: 0.0005 // 阻尼系数, 系数越小, 越灵敏
