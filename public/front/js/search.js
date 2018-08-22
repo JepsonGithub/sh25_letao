@@ -114,7 +114,9 @@ $(function() {
     // 获取搜索关键字
     var key = $('.search_input').val().trim();
     if ( key === "" ) {
-      alert("请输入搜索关键字");
+      mui.toast("请输入搜索关键字", {
+        duration: 2000
+      })
       return;
     }
 
