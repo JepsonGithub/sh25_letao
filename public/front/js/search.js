@@ -113,7 +113,6 @@ $(function() {
 
     // 获取搜索关键字
     var key = $('.search_input').val().trim();
-
     if ( key === "" ) {
       alert("请输入搜索关键字");
       return;
@@ -130,7 +129,6 @@ $(function() {
       // 说明在数组中可以找到重复的项, 且索引为 index
       arr.splice( index, 1 );
     }
-
     if ( arr.length >= 10 ) {
       // 删除最后一项
       arr.pop();
@@ -141,13 +139,13 @@ $(function() {
 
     // 转成json, 存到本地存储中
     localStorage.setItem( "search_list", JSON.stringify( arr ) );
-
     // 页面重新渲染
     render();
 
     // 清空输入框
     $('.search_input').val("");
-
+    // 添加跳转, 跳转到产品列表页
+    location.href = "searchList.html?key=" + key;
   })
 
 
