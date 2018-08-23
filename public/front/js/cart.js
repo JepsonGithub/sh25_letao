@@ -76,6 +76,66 @@ $(function() {
         }
       }
     })
-  })
+  });
 
+
+
+  // 4. 编辑功能
+  $('.lt_main').on("tap", ".btn_edit", function() {
+    // html5 里面有一个 dataset 可以一次性获取所有的 自定义属性
+    var obj = this.dataset;
+    var id = obj.id;
+
+    // 生成 htmlStr
+    var htmlStr = template( "editTpl", obj );
+
+    // mui 将模板中的 \n 换行标记, 解析成 <br> 标签, 就换行了
+    // 需要将模板中所有的 \n 去掉
+    htmlStr = htmlStr.replace( /\n/g, "" );
+
+    // 弹出确认框
+    // 确认框的内容, 支持传递 html 模板
+    mui.confirm( htmlStr , "编辑商品", [ "确认", "取消" ], function( e ) {
+
+      if ( e.index === 0 ) {
+        // 你点击是的确认按钮,
+        // 进行获取尺码, 数量, id, 进行 ajax 提交
+        var size = $('.lt_size span.current').text();  // 尺码
+        var num = $('.mui-numbox-input').val(); // 数量
+
+        $.ajax({
+          type: "post",
+          url: "/cart/updateCart",
+          data: {
+            id: id,
+            size: size,
+            num: num
+          },
+          dataType: "json",
+          success: function( info ) {
+            console.log( info );
+            if ( info.success ) {
+              // 下拉刷新一次即可
+              mui(".mui-scroll-wrapper").pullRefresh().pulldownLoading();
+            }
+          }
+        })
+
+      }
+
+
+    });
+
+
+    // 进行数字框初始化
+    mui(".mui-numbox").numbox();
+
+  });
+
+
+
+  // 5. 让尺码可以被选
+  $('body').on("click", ".lt_size span", function() {
+    $(this).addClass("current").siblings().removeClass("current");
+  })
 })
